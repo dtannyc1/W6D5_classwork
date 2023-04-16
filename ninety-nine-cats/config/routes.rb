@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   root "cats#index"
 
   resources :cats, only: [:index, :create, :update, :show, :new, :edit]
-
-
+  resources :cat_rental_requests, only: [:new, :create]
+  resources :cats do 
+    resources :cat_rental_requests, only: [:new]
+  end
 
 end

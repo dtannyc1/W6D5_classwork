@@ -23,3 +23,33 @@
         </tr>
     </tbody>
  </table>
+
+ <table>
+    <thead>
+        <tr> 
+            <th colspan="3">Rental Requests:</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Start Date </td>
+            <td>End Date</td>
+            <td>Status</td>
+        </tr>
+        <% requests= Cat.joins(:cat_rental_requests).where(id: @cat.id).order("cat_rental_requests.start_date").select("cat_rental_requests.*")%>
+            <% if requests.exists?  %>
+                <% requests.each do |request|%>
+                    <tr>
+                        <td><%= request.start_date%></td>
+                        <td><%= request.end_date%></td>
+                        <td><%= request.status%></td>
+                    </tr>
+                <% end %>
+            <% else %> 
+                <tr >
+                    <td colspan="3"><%=@cat.name %> Has no requests!</td>
+                </tr>
+            <% end %>   
+    </tbody>
+</table>
+   <a href="<%=new_cat_cat_rental_request_url(@cat)%>">Make a request</a>
